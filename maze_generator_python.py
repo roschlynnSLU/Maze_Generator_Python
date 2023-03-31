@@ -1,17 +1,33 @@
 import random
-import graph_class
-        
+
+class Graph:
+
+    def __init__(self, num_nodes):
+        self.num_nodes = num_nodes
+        self.graph = {}
+
+    def add_edge(self, u, v):
+        if u in self.graph:
+            self.graph[u].append(v)
+        else:
+            self.graph[u] = [v]
+    
+    def remove_edge(self, u, v):
+        if u in self.graph:
+            if v in self.graph[u]:
+                self.graph[u].remove(v)
+
+    def has_edge(self, u, v):
+        result = False
+        if u in self.graph:
+            if v in self.graph[u]:
+                result = True
+        return result
+
 class Maze:
 
     def __init__(self, size):
         self.size = size
         self.nodes = []
-        self.graph = graph_class.Graph(size*size)
-
-    def get_total_nodes(self):
-        return max(self.graph) + 1
-
-    def print_Maze_using_DFS(maze, start_node):
-
-maze = Maze(5)
-print("Welcome to 2D maze")
+        self.graph = Graph(size*size)
+    
